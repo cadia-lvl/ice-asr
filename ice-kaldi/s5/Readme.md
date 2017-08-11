@@ -4,7 +4,10 @@
 
 The system uses the Kaldi speech recognition toolkit. Find download and installing instructions in Kaldi's online documentation:
 http://www.danielpovey.com/kaldi-docs/install.html or https://github.com/kaldi-asr/kaldi. We are using a version of Kaldi from February 2017.
-A thorough documentation of Kaldi can be found at http://kaldi-asr.org/, for a step-by-step tutorial for beginners see http://kaldi-asr.org/doc/kaldi_for_dummies.html 
+A thorough documentation of Kaldi can be found at http://kaldi-asr.org/, for a step-by-step tutorial for beginners see http://kaldi-asr.org/doc/kaldi_for_dummies.html.
+
+*Note:* Per default Kaldi will be installed creating debuggable binaries at the cost of speed. When optimizing for speed you should edit `kaldi/src/kaldi.mk` as described
+in http://kaldi-asr.org/doc/build_setup.html.
 
 Kaldi has an excellent collection of examples in it's `$KALDI_ROOT/egs/` directory, have a look at `egs/wsj/` for example.
 
@@ -19,7 +22,7 @@ On http://malfong.is/ you can find speech and text data as well as ready-to-use 
 
 ### Icelandic speech data
 
-Go to http://malfong.is and find the section ***Corpora - text and sound files (ísl. Málheildir - texta- og hljóðskrár)***. There are two corpora that have been used to train Kaldi-based ASR systems for Icelandic: *The Malromur Corpus (ísl. Málrómur)* which is the one referred to in this project, and *Corpus of Althingi's Parliamentary Speeches for ASR (ísl. Alþingisræður til talgreiningar)* (see: https://github.com/ingarun/kaldi).
+Go to http://malfong.is and find the section ***Corpora - text and sound files (ísl. Málheildir - texta- og hljóðskrár)*** . There are two corpora that have been used to train Kaldi-based ASR systems for Icelandic: *The Malromur Corpus (ísl. Málrómur)* which is the one referred to in this project, and *Corpus of Althingi's Parliamentary Speeches for ASR (ísl. Alþingisræður til talgreiningar)* (see: https://github.com/ingarun/kaldi).
 
 You only need a speech corpus if you want to train your own acoustic models. See description of ready-to-use models below.
 
@@ -35,12 +38,11 @@ There are two pronunciation dictionaries available under ***Language description
 
 At http://malfong.is we provide acoustic models, language models and a ready-to-use decoding graph created using our training set up. It might be a good starting point to run ASR using these models before starting your own adjustments and development, especially if you are new to Kaldi and ASR. 
 
-## Speech recognition with existing models - decode single wav-files
+## Speech recognition with existing models
 
-In the subdirectories of `models` you will find a ready-to-use model and a decoding graph. The script `online_decoding_nnet2.sh` uses this model to decode a wav-file, make sure the files to decode are recorded at 16kHz or converted to this samplerate. Later on you can configure these scripts to use your own models.
+To decode .wav files using already trained models, download the tdnn_lstm models from http://malfong.is. Place the graph directory in `s5/exp` and add the `ivector_extractor` directory to `s5/exp/chain/tdnn_lstm_online/` as well as the `final.mdl` file.
 
-The language model is a bigram model with modified Kneser-Ney smoothing, trained on 1 million sentences from the Leipzig Wortschatz corpus.  --> ***update this models and decoding graph!***
-This settings reaches a 23.17% WER on the Málrómur test set, slightly worse than using a trigram model on the same data (21.89% WER). Using bigrams reduces the size of the decoding graph to a great extent, making it more feasible for online decoding.
+
 
 ## Train acoustic models
 
