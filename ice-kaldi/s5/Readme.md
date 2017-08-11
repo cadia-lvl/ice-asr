@@ -41,6 +41,13 @@ At http://malfong.is we provide acoustic models, language models and a ready-to-
 ## Speech recognition with existing models
 
 To decode .wav files using already trained models, download the tdnn_lstm models from http://malfong.is. Place the graph directory and `chain/tdnn_lstm_online` in `s5/exp`.
+The audio files to decode have to have a 16kHz sample rate. If you need to convert your audio, this can be done using sox: `sox - -c1 -esigned -r16000 -twav - <original-audio.wav> > <converted_audio.wav>`
+
+To decode an audio file, go to `s5` and type:
+
+	  local/chain/decode_tdnn_lstm_online.sh <your-audio-file>
+
+Inspect the decoding script to see if the paths match your file names and directory structure.
 
 
 
