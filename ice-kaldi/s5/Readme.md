@@ -40,7 +40,7 @@ At http://malfong.is we provide acoustic models, language models and a ready-to-
 
 ## Speech recognition with existing models
 
-To decode .wav files using already trained models, download the tdnn_lstm models from http://malfong.is. Place the graph directory in `s5/exp` and add the `ivector_extractor` directory to `s5/exp/chain/tdnn_lstm_online/` as well as the `final.mdl` file.
+To decode .wav files using already trained models, download the tdnn_lstm models from http://malfong.is. Place the graph directory and `chain/tdnn_lstm_online` in `s5/exp`.
 
 
 
