@@ -11,7 +11,7 @@ in http://kaldi-asr.org/doc/build_setup.html.
 
 Kaldi has an excellent collection of examples in it's `$KALDI_ROOT/egs/` directory, have a look at `egs/wsj/` for example.
 
-When you have cloned this project, edit `path.sh` and `setup.sh` according to the location of your Kaldi installation.
+When you have installed Kaldi and cloned this project, edit `path.sh` and `setup.sh` according to the location of your Kaldi installation.
 Run `setup.sh` from your `s5` directory to create symlinks to the folders `steps` and `utils` from an example project. 
 
 Now you should be all set up for experimenting with Kaldi, below are descriptions on both how to use existing models and how to train your own.
@@ -41,14 +41,13 @@ At http://malfong.is we provide acoustic models, language models and a ready-to-
 ## Speech recognition with existing models
 
 To decode .wav files using already trained models, download the tdnn_lstm models from http://malfong.is. Place the graph directory and `chain/tdnn_lstm_online` in `s5/exp`.
-The audio files to decode have to have a 16kHz sample rate. If you need to convert your audio, this can be done using sox: `sox - -c1 -esigned -r16000 -twav - <original-audio.wav> > <converted_audio.wav>`
+The audio files to decode have to have a 16kHz sample rate. If you need to convert your audio, this can be done using sox: `sox - -c1 -esigned -r16000 -twav - <original-audio.wav> > <converted-audio.wav>`
 
-To decode an audio file, go to `s5` and type:
+To decode an audio file, go to `s5` and run:
 
 	  local/chain/decode_tdnn_lstm_online.sh <your-audio-file>
 
 Inspect the decoding script to see if the paths match your file names and directory structure.
-
 
 
 ## Train acoustic models
@@ -68,14 +67,15 @@ If your info text file has another format, please have a look at http://kaldi-as
 Depending on if you have defined training and test sets or want to generate these randomly, there are two different procedures:
 
 ##### Pre-defined training and test sets
-Divide the original meta data (wav\_info.txt) according to your defined training and test sets. Then run `malromur_prep_data.sh` (or your own data-prep script) on these directories separately:
+Divide the original meta data (wav\_info.txt) according to your defined training, test and development sets. Then run `malromur_prep_data.sh` (or your own data-prep script) on these directories separately:
 
     local/malromur_prep_data.sh <path-to-audio-files> <wav_info_training.txt> data/training_data
 	local/malromur_prep_data.sh <path-to-audio-files> <wav_info_test.txt> data/test_data
+	local/malromur_prep_data.sh <path-to-audio-files> <wav_info_dev.txt> data/dev_data
    
 
 ##### No pre-defined training and test sets 
-Run `malromur_prep_data.sh` and on the whole corpus and then divide the generated data randomly:
+Run `malromur_prep_data.sh` on the whole corpus and then divide the generated data randomly:
  
 	local/malromur_prep_data.sh <path-to-audio-files> wav_info.txt data/all
 	utils/subset_data_dir_tr_cv.sh --cv-utt-percent 10 data/{all,training_data,test_data}
@@ -89,13 +89,13 @@ On each of your defined sub-data folders (training, test, ...) run the feature e
 	steps/compute_cmvn_stats.sh data/training_data exp/make_mfcc/training_data mfcc
 
 #### Training
-Before starting with the training, unpack `data/lang.tar.gz` and `data/lang_bi_small.tar.gz`
-To train an LDA+MLLT acoustic model using the existing language model in `lang_bi_small`, run the commands in
+At this point you need to have language data in place. If you got our data from http://malfong.is, unpack the `lang` and the `lang_bi_small` directories and put them in your `s5/data/` directory. For creating your own lexicon and language model, see TUTORIAL.
+To train an LDA+MLLT acoustic model run the commands in
 
     local/train_lda_mllt.sh
 
 The script also contains commands to create a decoding graph and to decode the test set, including scoring of the results.
-If you run this script as a whole (instead of one command at a time) running this script can take hours, depending on the size of your data sets. The paths are hard coded to match the previous steps, so make sure these are the paths you are using or change otherwise.
+If you run this script as a whole (instead of one command at a time) running this script can take hours, depending on the size of your data sets. The paths to the language data are hard coded, so make sure these are the paths you are using or change otherwise. If you are training your first system, you should make a decoding graph and decode already after the first three training steps as shown in the script. This way you can see if everything is working and you already have your first ASR results! A decoding test at this early stage, however, is generally not necessary or useful.
 
 #### Training a deep neural network
 After running the previous step, run `local/chain/prepare_tdnn_lstm.sh`. This is an intermediate step before starting with the training of the neural network from the script `local/chain/run_tdnn_lstm.sh`. This script is adaptded from the _swbd_ expample in `kaldi/egs`.
