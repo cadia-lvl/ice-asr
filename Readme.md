@@ -1,5 +1,11 @@
 # Ice-ASR - Open ASR for Icelandic
 
+## Ice-Kaldi - ASR for Icelandic using Kaldi
+
+## Text normalizing
+
+## Error analysis
+
 ### Contact
 The resources are being developed at the Language and Voice Lab at the Reykjavik University (http://www.ru.is/, http://lvl.ru.is).
 Contact: Anna Björk Nikulásdóttir, annabn@ru.is 
