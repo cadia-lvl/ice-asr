@@ -1,29 +1,6 @@
 #!/bin/bash
 
-# Based on: egs/swbd/s5c/local/chain/run_tdnn_lstm.sh
-
-# Comments from original file:
-# run_tdnn_lstm_1e.sh is like run_tdnn_lstm_1d.sh but
-# trying the change of xent_regularize from 0.025 (which was an
-# unusual value) to the more usual 0.01.
-
-# There seems to be no consistent difference in WER.  Inconclusive.
-# However I may keep 0.01 just for consistency with other setups.
-# local/chain/compare_wer_general.sh --looped tdnn_lstm_1d_sp tdnn_lstm_1e_sp
-# System                tdnn_lstm_1d_sp tdnn_lstm_1e_sp
-# WER on train_dev(tg)      12.90     12.74
-#           [looped:]       13.01     12.93
-# WER on train_dev(fg)      11.90     11.70
-#           [looped:]       12.13     12.09
-# WER on eval2000(tg)        15.7      15.7
-#           [looped:]        15.7      15.9
-# WER on eval2000(fg)        14.2      14.3
-#           [looped:]        14.4      14.6
-# Final train prob         -0.064    -0.066
-# Final valid prob         -0.088    -0.087
-# Final train prob (xent)        -0.836    -0.931
-# Final valid prob (xent)       -0.9631   -1.0279
-
+# Based on: kaldi/egs/swbd/s5c/local/chain/run_tdnn_lstm.sh
 
 
 set -e
@@ -91,7 +68,6 @@ lang=data/lang_chain
 
 # if we are using the speed-perturbed data we need to generate
 # alignments for it.
-# ABN: skip this - already ivectors from earlier training, OK?
 #local/nnet3/run_ivector_common.sh --stage $stage \
 #  --speed-perturb $speed_perturb \
 #  --generate-alignments $speed_perturb || exit 1;
@@ -179,10 +155,6 @@ EOF
 fi
 
 if [ $stage -le 13 ]; then
-  if [[ $(hostname -f) == *.clsp.jhu.edu ]] && [ ! -d $dir/egs/storage ]; then
-    utils/create_split_dir.pl \
-     /export/b0{5,6,7,8}/$USER/kaldi-data/egs/swbd-$(date +'%m_%d_%H_%M')/s5c/$dir/egs/storage $dir/egs/storage
-  fi
 
   steps/nnet3/chain/train.py --stage $train_stage \
     --cmd "$decode_cmd" \
@@ -225,7 +197,6 @@ if [ $stage -le 14 ]; then
   # the lang directory.
   utils/mkgraph.sh --self-loop-scale 1.0 data/lang_tri_small $dir $dir/graph_tri_small
 fi
-
 
 
 # decoding: see local/decode_tdnn_lstm.sh
