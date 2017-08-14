@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Performes some intermediate steps to prepare for nnet2 training - uses the results from
-# train_lda_mllt.sh
+# Prepare for nnet training - uses the results from train_lda_mllt.sh
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <train-dir>" >&2
