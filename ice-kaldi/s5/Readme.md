@@ -98,13 +98,18 @@ The script also contains commands to create a decoding graph and to decode the t
 If you run this script as a whole (instead of one command at a time) running this script can take hours, depending on the size of your data sets. The paths to the language data are hard coded, so make sure these are the paths you are using or change otherwise. If you are training your first system, you should make a decoding graph and decode already after the first three training steps as shown in the script. This way you can see if everything is working and you already have your first ASR results! A decoding test at this early stage, however, is generally not necessary or useful.
 
 #### Training a deep neural network
-After running the previous step, run `local/chain/prepare_tdnn_lstm.sh`. This is an intermediate step before starting with the training of the neural network from the script `local/chain/run_tdnn_lstm.sh`. This script is adaptded from the _swbd_ expample in `kaldi/egs`.
+As stated above, you need a speech corpus with at least 40 speakers to train a DNN by this recipe. After running the previous step, run `local/chain/prepare_tdnn_lstm.sh`. This is an intermediate step before starting with the training of the neural network from the script `local/chain/run_tdnn_lstm.sh`. This script is adaptded from the _swbd_ expample in `kaldi/egs`.
 
 This version of the script runs on one or more GPUs, see http://kaldi-asr.org/doc/dnn2.html#dnn2_gpu if you have to use CPUs.
 
-The paths in the scripts are set according to the previous examples and the training uses one GPU. When training using a slurm.pl queue, we ran into an _invalid array_ error when using --max\_run\_jobs option. To avoid this, two scripts where customized: `train_multisplice_accel2_custom.sh` and `get_egs2_custom.sh`. If you need to use these customized scripts, exchange `train_multisplice_accel2.sh` for the customized version in `run_nnet2.sh`. *check whicht part of this are valid for the tdnn-lstm!* 
+The paths in the scripts are set according to the previous examples and the training uses one GPU. 
 
-In the current version all parameters are used as given in kaldi/egs/swbd/local/chain/train_tdnn_lstm.sh. 
+In the current version all parameters are used as given in the Switchboard recipe `kaldi/egs/swbd/local/chain/train_tdnn_lstm.sh`.
+
+To decode a test set, run:
+
+	 local/decode_tdnn_lstm.sh <test-set> <path/to/decoding-graph>
+	 local/score.sh <test-set_hires> <path/to/graph> <path/to/decoding-output>
 
  
 
