@@ -1,6 +1,6 @@
 # Ice-norm - text normalization for Icelandic ASR
 
-A collection of scripts for text normalization of Icelandic texts. The normalization is for the purpose of automatic speech recognition and along with general text cleaning procedures addresses special problems of web scraped texts from news sites. This is a work in progress.
+A collection of scripts for text normalization of Icelandic texts. The normalization is for the purpose of language model building for automatic speech recognition. Punctuation is removed, some common abbreviations and acronyms replaced and all text is lowercased. Along with these general text cleaning procedures, the project addresses special problems of web scraped texts from Icelandic news sites. This is a work in progress, issues like digits and dates have not been attacked at all for example.
 
 Example:
 
