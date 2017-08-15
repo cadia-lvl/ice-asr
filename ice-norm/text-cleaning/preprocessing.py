@@ -120,4 +120,4 @@ def process(line):
     processed_line = clean_web_page_labels(processed_line)
     tokens = nltk.word_tokenize(processed_line)
     result = ' '.join(tokens)
-    return result[:-1]
+    return result

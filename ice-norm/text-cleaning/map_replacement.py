@@ -84,7 +84,7 @@ def replace_from_maps(line):
     res = repl.replace_abbreviations(res)
     res = repl.replace_symbols(res)
     # delete puncutation
-    res = re.sub(r'[.,:?]', '', res)
+    res = re.sub(r'[.,:?!]', '', res)
     arr = res.split()
     res = ' '.join(arr)
     res = res.lower()
