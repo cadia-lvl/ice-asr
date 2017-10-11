@@ -1,18 +1,27 @@
 #!/bin/bash -eu
 #
-# Málrómur data prep example
+# Copyright 2017 Reykjavik University
+# Author: Robert Kjaran, Anna B. Nikulasdottir
 # 
-# Based on a script from Róbert Kjaran 2015.
-# Change: reading wav_info.txt separately and not necessarily from the audio data directory
-# (the audio directory was '/wav' original script)
+# Prepares speech data in the format of the Málrómur speech corpus for ASR training in Kaldi
+# 
+# The format of the info file (e.g. wav_info.txt) this script expects (tab-separated columns):
+#
+# <wav-filename>	<recording-info>	<recording-info>	<gender>	<age>	<prompt (spoken text)>	<utterance-length>	vorbis	16000	1	Vorbis
+#
+# Note that the script converts all prompts to lowercase, change 'fields[5].lower()' if case should be kept.
+#
+# Input: a directory of audio files, an info file describing the audio files
+# Output: a directory containing all necessary files to start processing by Kaldi
+#
 
 samplerate=16000
 tmp=$(mktemp -d)
 trap "rm -rf $tmp" EXIT
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <path-to-malromur-audio> <info-file> <data-dir>" >&2
-    echo "Eg. $0 /data/corpora/malromur/wav/ wav_info.txt data/malromur1" >&2
+    echo "Usage: $0 <path-to-malromur-audio> <info-file-training> <out-data-dir>" >&2
+    echo "Eg. $0 /data/corpora/malromur/wav/ wav_info_train.txt data/training_data" >&2
     exit 1;
 fi
 
