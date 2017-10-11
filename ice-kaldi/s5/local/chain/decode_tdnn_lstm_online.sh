@@ -9,7 +9,9 @@
 # The audio file has to have a 16kHz sample rate. The script outputs log information on lines starting with LOG, 
 # the line containing the decoding result starts with 'utterance-id'.
 #
-# Make sure the given paths match your directory structure or change the arguments accordingly
+# Make sure the given paths match your directory structure or change them accordingly.
+# This applies to the location of the online configuration file, online.conf; word-symbol table words.txt; the 
+# acoustic model file, final.mdl; and the graph, HCLG.fst
 #
 
 if [ $# -ne 1 ]; then
@@ -26,9 +28,9 @@ online2-wav-nnet3-latgen-faster --online=false \
 	--do-endpointing=false \
 	--config=exp/chain/tdnn_lstm_online/conf/online.conf \
 	--acoustic-scale=1.0 \
-	--word-symbol-table=exp/graph_bi_200k/words.txt \
+	--word-symbol-table=exp/graph_tri_small/words.txt \
 	exp/chain/tdnn_lstm_online/final.mdl \
-	exp/graph_bi_200k/HCLG.fst \
+	exp/graph_tri_small/HCLG.fst \
 	'ark:echo utterance-id utterance-id|' 'scp:echo utterance-id '"$1"'|' 'ark:/dev/null'
 
 exit 0;		
