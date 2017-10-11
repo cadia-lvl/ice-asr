@@ -18,7 +18,7 @@ Ice-Kaldi is based on the Kaldi speech recognition toolkit (http://kaldi-asr.org
 The current setup uses a TDNN-LSTM implemented in the Kaldi framework. The recipe followed is from the Switchboard experiment: kaldi/egs/swbd/s5c/local/chain/run_tdnn_lstm.sh, the main training script being kaldi/egs/wsj/s5/steps/nnet3/chain/train.py. 
 The network was trained using about 100 hours of speech from _Málrómur_. The language models are trigram models with modified Kneser-Ney smoothing. A smaller one built from 200,000 sentences (3.5 million tokens) from the Leipzig Wortschatz project and training data from the _Málrómur_ prompts, and a larger one for rescoring, based on 10 million sentences (167 million tokens). The size of the pronunciation dictionary is about 136,000 words.
 
-This setup reaches a word error rate (WER) of 16.30% on a test set of 6,000 open vocabulary utterances and 8.32% on a subset of 4,700 closed vocabulary utterances. In the course of the project the aim is to improve the models and the training setup to further reduce WER.
+This setup reaches a word error rate (WER) of 15.72% on a test set of 6,000 open vocabulary utterances and 7.99% on a subset of 4,700 closed vocabulary utterances. In the course of the project the aim is to improve the models and the training setup to further reduce WER.
 
 ### Use the recipes and the resources
 See the Readme file in the _s5_ directory.
