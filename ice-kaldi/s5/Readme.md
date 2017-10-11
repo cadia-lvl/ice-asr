@@ -32,7 +32,7 @@ The language models used in this project are based on texts from the ***Leipzig 
 
 ### Pronunciation dictionary
 
-There are two pronunciation dictionaries available under ***Language descriptions (ísl. Mállýsingar)*** on http://malfong.is: *Pronunciation dictionary (Framburðarorðabókin)* and *General pronunciation dictionary for ASR (Almenn framburðarorðabók fyrir talgreiningu)*. The former was developed during the Hjal project in 2003, about 60,000 manually transcribed words using both the IPA and the SAMPA phonetic alphabets. The general pronunciation dictionary for ASR is based on the first pronunciation dictionary, and currently lists about 136,000 transcribed words using IPA. The transcriptions of words not in the original lexicon was done automatically. This lexicon is available both in a standard format and in an aligned version directly applicable for Kaldi. 
+There are two pronunciation dictionaries available under ***Language descriptions (ísl. Mállýsingar)*** on http://malfong.is: *Pronunciation dictionary (Framburðarorðabókin)* and *General pronunciation dictionary for ASR (Almenn framburðarorðabók fyrir talgreiningu)*. The former was developed during the Hjal project in 2003, about 60,000 manually transcribed words using both the IPA and the SAMPA phonetic alphabets. The general pronunciation dictionary for ASR is based on the first pronunciation dictionary, and currently lists about 136,000 transcribed words using IPA. The transcriptions of words not in the original lexicon was done automatically. On http://malfong.is you can find the lexicon in text format and a directory containing all generated lexicon and pronunciation data needed for working with Kaldi. 
 
 ### ASR models
 
