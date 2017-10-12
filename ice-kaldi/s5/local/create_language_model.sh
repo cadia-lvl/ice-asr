@@ -19,7 +19,6 @@ dictdir=$1
 corpus=$2
 lmdir=$3
 
-echo $stage
 if [ $stage -le 1 ]; then
 
 	mkdir -p $lmdir
